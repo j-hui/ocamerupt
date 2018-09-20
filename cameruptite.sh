@@ -50,6 +50,9 @@ log_do "OPAM env" eval `opam config env`
 
 log_do "install LLVM bindings (${ll_ver})" opam install -y llvm.${ll_ver}
 
-log_do "install other OPAM packages" opam install -y ${OPAM_PKGS}
+
+if [[ ! -z "${OPAM_PKGS}" ]]; then
+    log_do "install other OPAM packages" opam install -y ${OPAM_PKGS}
+fi
 
 report "mega evolution complete!"
