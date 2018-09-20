@@ -17,11 +17,11 @@ report() { echo " = = = => [CAMERUPTITE]:" "$@" }
 log_do() {
     local name=$1
     shift
-    echo "========"
+    echo "--------"
     report "Starting:" "${name}" "..."
     "$@"
     report "Complete:" "${name}"
-    echo "========"
+    echo "--------"
 }
 
 cd ~
