@@ -9,11 +9,11 @@ OPAM_DEPS="gcc make python2.7 m4 pkg-config unzip cmake"
 OCAML_PKGS="ocaml opam"
 OPAM_PKGS=
 
-update_cmd() { apt update -y && apt upgrade -y }
-install_cmd() { apt install -y "$@" }
+update_cmd() { apt update -y && apt upgrade -y ; }
+install_cmd() { apt install -y "$@" ; }
 
 
-report() { echo " = = = => [CAMERUPTITE]:" "$@" }
+report() { echo " = = = => [CAMERUPTITE]:" "$@" ; }
 log_do() {
     local name=$1
     shift
