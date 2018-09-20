@@ -10,8 +10,8 @@ OPAM_DEPS="gcc make python2.7 m4 pkg-config unzip cmake"
 OCAML_PKGS="ocaml opam"
 OPAM_PKGS=
 
-update_cmd() { apt update -y && apt upgrade -y ; }
-install_cmd() { apt install -y "$@" ; }
+update_cmd() { sudo apt update -y && sudo apt upgrade -y ; }
+install_cmd() { sudo apt install -y "$@" ; }
 
 
 report() { echo " = = = => [CAMERUPTITE]:" "$@" ; }
@@ -24,6 +24,11 @@ log_do() {
     report "Complete:" "${name}"
     echo "--------"
 }
+
+if [ "$(id -u)" == "0" ]; then
+    report "$0 should not be run as root. It already contains sudo where needed."
+    exit 1
+fi
 
 cd ~
 
