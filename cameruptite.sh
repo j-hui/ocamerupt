@@ -4,7 +4,7 @@ set -eu
 
 #LLVM_VER=-5.0
 
-UTILS="python3 clang tree htop git svn vim emacs"
+UTILS="python3 clang tree htop git subversion vim emacs"
 OPAM_DEPS="gcc make python2.7 m4 pkg-config unzip cmake"
 OCAML_PKGS="ocaml opam"
 OPAM_PKGS=
