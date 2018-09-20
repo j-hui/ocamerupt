@@ -2,6 +2,9 @@
 
 set -eu
 
+#### BEGIN: script configs
+#           modify these as needed
+
 #LLVM_VER=-5.0
 LLVM_VER=
 
@@ -12,6 +15,8 @@ OPAM_PKGS=
 
 update_cmd() { sudo apt update -y && sudo apt upgrade -y ; }
 install_cmd() { sudo apt install -y "$@" ; }
+
+#### END: script configs
 
 
 report() { echo " = = = => [CAMERUPTITE]:" "$@" ; }
