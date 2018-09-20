@@ -4,9 +4,9 @@ set -eu
 
 #LLVM_VER=-5.0
 
-UTILS=python3 clang tree htop git svn vim emacs
-OPAM_DEPS=gcc make python2.7 m4 pkg-config unzip cmake
-OCAML_PKGS=ocaml opam
+UTILS="python3 clang tree htop git svn vim emacs"
+OPAM_DEPS="gcc make python2.7 m4 pkg-config unzip cmake"
+OCAML_PKGS="ocaml opam"
 OPAM_PKGS=
 
 update_cmd() { apt update -y && apt upgrade -y }
@@ -43,5 +43,7 @@ log_do "OPAM init" opam init --auto-setup
 log_do "OPAM env" eval `opam config env`
 
 log_do "install LLVM bindings (${ll_ver})" opam install -y llvm.${ll_ver}
+
+log_do "install other OPAM packages" opam install -y ${OPAM_PKGS}
 
 report "mega evolution complete!"
