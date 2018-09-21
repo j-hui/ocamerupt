@@ -88,3 +88,36 @@ _Default version in bold_
 
 Note that for some reason, on macOS, the LLVM versions installed have additional
 patch versions (e.g. 6.0.1 rather than 6.0.0).
+
+Docker
+------
+
+### Docker primer
+
+Very briefly, we can standardize our build environment using Docker.
+
+We can create Docker "images," which are snapshots of virtual environments we've
+provisioned using `Dockerfile`s. We create these images using `docker build .`,
+which will perform changes to some base image from commands read from some
+`Dockerfile` (which we can also specify with the `-f` flag if it's not located
+at `./Dockerfile`). To see images available locally, use `docker image ls`.
+
+Once we have that image, we can create instances of it using `docker run`,
+passing it the image ID or tag so that it knows which image to instantiate. We
+can also pass the `-it` flag to run the container in interactive mode to poke
+around in a shell. We can restart stopped containers using `docker start`,
+optionally passing the `--attach` flag to open up interactive mode. We can see
+all the docker containers available by running `docker container ls`.
+
+### LLVM versioning in Docker
+
+For some reason, the packages available to `apt` and `opam` are different inside
+Docker containers. In particular, the `ocaml/opam` image seems to be unable to
+find any version later than 5.0.0.
+
+### Where to go from here
+
+Once images have been built, you should write another `Dockerfile` that uses the
+built image as its base image, installs any additional dependencies for your
+project, copies in any files or directories, and specifies a `CMD` which will be
+the command that is run when you use `docker run`.
