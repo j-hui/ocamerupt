@@ -10,7 +10,7 @@ LLVM_VER=
 
 # You can also just not install any utilities
 #UTILS=
-UTILS="python3 clang tree htop git subversion vim emacs"
+UTILS="python3 clang tree htop git subversion vim emacs tmux"
 
 OPAM_DEPS="gcc make python2.7 m4 pkg-config unzip cmake"
 OCAML_PKGS="ocaml opam"
