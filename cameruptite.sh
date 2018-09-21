@@ -40,7 +40,7 @@ case $(uname) in
                 # we assume apt already comes installed since Linux is for the l33t kids
                 update_cmd() { sudo apt update -y && sudo apt upgrade -y ; }
                 install_cmd() { sudo apt install -y "$@" ; }
-                llvm_ver_cmd() { llvm-config-${LLVM_VER} --version ; }
+                llvm_ver_cmd() { llvm-config${LLVM_VER} --version ; }
                 ;;
             *)
                 echo "Unsupported Linux distro, bailing now."
