@@ -37,6 +37,7 @@ case $(uname) in
     "Linux")
         case $(lsb_release -is) in
             "Debian"|"Ubuntu")
+                # we assume apt already comes installed since Linux is for the l33t kids
                 update_cmd() { sudo apt update -y && sudo apt upgrade -y ; }
                 install_cmd() { sudo apt install -y "$@" ; }
                 ;;
@@ -47,7 +48,7 @@ case $(uname) in
         esac
         ;;
     "Darwin")
-        if [[ ! hash "$1" 2> /dev/null ]]; then
+        if ! hash "$1" 2> /dev/null; then
             report "Installing Homebrew, a macOS package manager..."
             /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
         fi
