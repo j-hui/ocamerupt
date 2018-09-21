@@ -3,11 +3,15 @@
 #### BEGIN: script configs
 #           modify these as needed
 
-# This will be overridden to @6 if on macOS
+# This will be overridden to @6 if on macOS because brew
 #LLVM_VER=-6.0
 LLVM_VER=
 
+
+# You can also just not install any utilities
+#UTILS=
 UTILS="python3 clang tree htop git subversion vim emacs"
+
 OPAM_DEPS="gcc make python2.7 m4 pkg-config unzip cmake"
 OCAML_PKGS="ocaml opam"
 OPAM_PKGS=
@@ -76,7 +80,9 @@ cd ~
 
 log_do "update package manager" update_cmd
 
-log_do "install some handy utilities" install_cmd ${UTILS} 
+if [[ ! -z "${UTILS}" ]]; then
+    log_do "install some handy utilities" install_cmd ${UTILS} 
+fi
 
 log_do "install OPAM, and dependencies" install_cmd ${OPAM_DEPS} ${OCAML_PKGS}
 
