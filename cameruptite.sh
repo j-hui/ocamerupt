@@ -40,6 +40,7 @@ case $(uname) in
                 # we assume apt already comes installed since Linux is for the l33t kids
                 update_cmd() { sudo apt update -y && sudo apt upgrade -y ; }
                 install_cmd() { sudo apt install -y "$@" ; }
+                llvm_ver_cmd() { llvm-config-${LLVM_VER} --version ; }
                 ;;
             *)
                 echo "Unsupported Linux distro, bailing now."
@@ -52,8 +53,12 @@ case $(uname) in
             report "Installing Homebrew, a macOS package manager..."
             /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
         fi
+
+        LLVM_VER="@6"
+
         update_cmd() { brew update && brew upgrade ; }
         install_cmd() { brew install "$@" ; }
+        llvm_ver_cmd() { "/usr/local/opt/llvm${LLVM_VER}/bin/llvm-config" --version ; }
         ;;
     *)
         echo "Unsupported operating system, bailing now."
@@ -77,7 +82,7 @@ log_do "install OPAM, and dependencies" install_cmd ${OPAM_DEPS} ${OCAML_PKGS}
 
 log_do "installing LLVM" install_cmd "llvm${LLVM_VER}"
 
-ll_ver="$(llvm-config | sed 's/\..$/.0/' | sed 's/\(3\.[[:digit:]]\)\.0/\1/')"
+ll_ver="$( llvm_ver_cmd | sed 's/\..$/.0/' | sed 's/\(3\.[[:digit:]]\)\.0/\1/')"
 
 report "installed LLVM version ${ll_ver}"
 
