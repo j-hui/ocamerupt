@@ -14,7 +14,7 @@ UTILS="python3 clang tree htop git subversion vim emacs tmux"
 
 OPAM_DEPS="gcc make python2.7 m4 pkg-config unzip cmake"
 OCAML_PKGS="ocaml opam"
-OPAM_PKGS=
+OPAM_PKGS="depext"
 
 
 #### END: script configs
@@ -98,11 +98,11 @@ if ! opam list &> /dev/null; then
     log_do "OPAM env" eval `opam config env`
 fi
 
-log_do "install LLVM bindings (${ll_ver})" opam install -y llvm.${ll_ver}
-
 if [[ ! -z "${OPAM_PKGS}" ]]; then
     log_do "install other OPAM packages" opam install -y ${OPAM_PKGS}
 fi
+
+log_do "install LLVM bindings (${ll_ver})" opam install -y llvm.${ll_ver}
 
 report "Mega evolution complete!"
 
