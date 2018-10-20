@@ -7,9 +7,8 @@ environment for writing a compiler in OCaml that targets LLVM IR.
 Versioning Preamble
 -------------------
 
-The latest LLVM version is currently version 7. Unfortunately, there are only
-OCaml bindings for up to version 6. You need to install the OCaml binding with
-the version corresponding to that of LLVM.
+The latest LLVM version is currently version 7. You need to install the OCaml
+binding with the version corresponding to that of LLVM.
 
 To make things slightly worse, what gets installed by default varies by OS and
 distribution. We can work around any of these, but we need to be consistent.
@@ -21,7 +20,7 @@ version after a period. However, `opam` is not smart about how many digits are
 in the version number. After version 3.9, versions start going up in whole
 numbers, but with a different format too. That is, these are your options:
 
-    3.4, 3.5, 3.6, 3.7, 3.8, 3.9, 4.0.0, 5.0.0, 6.0.0
+    3.4, 3.5, 3.6, 3.7, 3.8, 3.9, 4.0.0, 5.0.0, 6.0.0, 7.0.0
 
 So trying to install `llvm.3.8.0` will not work, nor will `llvm.6.0`. Watch out
 for this if you're writing scripts.
@@ -62,10 +61,19 @@ For example, `llvm@6` will installed at:
 
     /usr/local/opt/llvm@6/bin/llvm-config
 
-You'll need to escape the `@` character if you're using Bash.
-
 You can add this to your `PATH`, use `brew link --force` (at your own risk), or
-make a bunch of symlinks yourself.
+make a bunch of symlinks yourself. To add this to your `PATH`, run the following
+command:
+
+    echo "export PATH=\"$(brew --prefix llvm)/bin:\$PATH\"" >> ~/.bash_profile
+
+Then source the path into your current session:
+
+    source ~/.bash_profile
+
+Now you should be able to run the following:
+
+    llvm-config --version
 
 LLVM Versions
 -------------
