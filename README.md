@@ -25,6 +25,32 @@ numbers, but with a different format too. That is, these are your options:
 So trying to install `llvm.3.8.0` will not work, nor will `llvm.6.0`. Watch out
 for this if you're writing scripts.
 
+
+### Installing using `opam depext`
+
+If you're installing manually, the most straightforward way to do so is by just
+using `opam depext`. It's pretty smart about figuring out which LLVM versions
+are available, and what it should install.
+
+If you're on macOS, we're going to assume you're using [HomeBrew][brew] as your
+package manager. If you haven't already, you should install it first (and use
+it to install `opam`).
+
+Once you've gotten to the point where you've successfully installed `opam`, you
+can use `depext` to install `llvm`:
+
+    opam depext -ui llvm
+
+It will automatically use your system package manager to install any system
+dependencies before installing the OPAM package. Note that it will prompt you
+about using `sudo` if your system package manager requires it.
+
+Note that doing so will install whatever default version is available for your
+system _as determined by OPAM_. This is different on different systems. For
+example, at this time of writing, the default for Ubuntu 18.04 is version 6,
+whereas the version for macOS is version 7. See below for more details.
+
+
 ### Determining LLVM version
 
 To check your LLVM version, use the following command:
@@ -39,6 +65,8 @@ should give to `opam`, the following should work:
 
 ### LLVM `PATH`
 
+#### Debian/Ubuntu Linux
+
 When you install the non-default version of LLVM, the regular commands won't be
 available. For example, on Ubuntu 16.04, after installing `llvm-6.0`, `lli`
 won't exist.
@@ -50,16 +78,18 @@ they should be on your path, but they will take the form:
 
 So in the example above, you'll have to run `lli-6.0`.
 
-It works slightly differently on Darwin/macOS. None of the LLVMs are installed
-to your local path (not even the default version), because `brew` complains that
-the formula is "keg-only." Instead, they're all installed under a directory that
-is not available to your `PATH` by default:
+#### macOS
+
+It works slightly differently on Darwin/macOS (using `brew`). None of the LLVMs
+are installed to your local path (not even the default version), because `brew`
+complains that the formula is "keg-only." Instead, they're all installed under
+a directory that is not available to your `PATH` by default:
 
     /usr/local/opt/<formula>/bin/
 
-For example, `llvm@6` will installed at:
+For example, `llvm@7` will installed at:
 
-    /usr/local/opt/llvm@6/bin/llvm-config
+    /usr/local/opt/llvm@7/bin/llvm-config
 
 You can add this to your `PATH`, use `brew link --force` (at your own risk), or
 make a bunch of symlinks yourself. To add this to your `PATH`, run the following
@@ -75,10 +105,14 @@ Now you should be able to run the following:
 
     llvm-config --version
 
+[brew]: https://brew.sh
+
+
 LLVM Versions
 -------------
 
-_Make sure to run `apt update` or `brew update` first_
+_Make sure to update your package manager (e.g. `apt update` or `brew update`)
+first_
 
 Ubuntu 16.04 (`apt`): 3.5, 3.6, 3.7, **3.8**, 3.9, 4.0, 5.0, 6.0
 
